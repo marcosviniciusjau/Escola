@@ -44,10 +44,10 @@ namespace Escola
             {
                 Console.WriteLine("ID      Nome      Notas     Faltas     RM");
 
-                
-                for (int i = 0;  i < lista_de_alunos.Count;)
+
+                for (int i = 0; i < lista_de_alunos.Count; i++)
                 {
-                   
+
                     Console.WriteLine(
                                   "{0}    {1}       {2}          {3}      {4}",
                         i,
@@ -66,157 +66,268 @@ namespace Escola
 
             }
         }
-
-
         public void editar()
         {
             if (lista_de_alunos.Count > 0)
             {
-                Console.WriteLine("Qual o ID do aluno que você quer mudar a RM?");
-                int a = Convert.ToInt32(Console.ReadLine());
+                bool digitacao_valida;
+                double nome;
+                int rm;
+                double nota;
+                int faltas;
+                int i;
+                int OpcaoMiniMenu;
 
-                Console.WriteLine(
-                    "Qual a novo RM do aluno(a) de ID {0} ,o RM atual do aluno(a) {0} ",
-                    lista_de_alunos[a].RM
-                 );
+                Console.WriteLine("Qual o ID do aluno?");
+                do
+                {
+                    digitacao_valida = int.TryParse(Console.ReadLine(), out i);
+
+                    if (i < 0 || digitacao_valida == false || i > lista_de_alunos.Count - 1)
+                    {
+                        Console.BackgroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("Valor inválido, redigite um numero válido:");
+                        Console.BackgroundColor = ConsoleColor.Black;
+
+                        digitacao_valida = false;
+                    }
+                } while (!digitacao_valida);
 
 
-                lista_de_alunos[a].RM = Convert.ToDouble(Console.ReadLine());
-
-                Console.BackgroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("RM Editado com Sucesso!");
+                digitacao_valida = false;
+                Console.WriteLine("O que você quer Alterar?");
                 Console.BackgroundColor = ConsoleColor.Black;
-
-                Console.WriteLine("Deseja voltar ao menu inicial? S/n");
-                bool voltar_menu_inicial = false;
-                voltar_menu_inicial = (Console.ReadLine().ToUpper() == "S") ? true : false;
-            }
-            else
-            {
-                Console.BackgroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Nenhum Aluno(a) foi adicionado(a)  ainda.");
+                Console.WriteLine("1-RM");
+                Console.WriteLine("2-Notas");
+                Console.WriteLine("3-Faltas");
                 Console.BackgroundColor = ConsoleColor.Black;
-            }
+                do
+                {
 
-            if (lista_de_alunos.Count > 0)
-            {
-                Console.WriteLine("Qual o ID do aluno que você quer mudar a nota?");
-                int i = Convert.ToInt32(Console.ReadLine());
+                    digitacao_valida = int.TryParse(Console.ReadLine(), out OpcaoMiniMenu);
 
-                Console.WriteLine(
-                    "Qual a nova nota do aluno(a) de ID {0} , a nota atual do aluno(a) {0} ",
-                    lista_de_alunos[i].Nota
-                 );
+                    if (OpcaoMiniMenu > 3 || digitacao_valida == false || OpcaoMiniMenu < 1)
+                    {
+                        Console.Clear();
+                        Console.BackgroundColor = ConsoleColor.DarkRed;
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.WriteLine("1-RM");
+                        Console.WriteLine("2-Notas");
+                        Console.WriteLine("3-Faltas");
+                        Console.BackgroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("Valor inválido, redigite um numero válido:");
+                        Console.BackgroundColor = ConsoleColor.Black;
 
-                lista_de_alunos[i].Nota = Convert.ToDouble(Console.ReadLine());
+                        digitacao_valida = false;
+                    }
 
-                Console.BackgroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("Nota Editado com Sucesso!");
-                Console.BackgroundColor = ConsoleColor.Black;
-            }
-            else
-            {
-                Console.BackgroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Nenhum Aluno(a) foi adicionado(a)  ainda.");
-                Console.BackgroundColor = ConsoleColor.Black;
-            }
+                } while (!digitacao_valida);
 
-            if (lista_de_alunos.Count > 0)
-            {
-                Console.WriteLine("Qual o ID do aluno(a) que você quer mudar as faltas?");
-                int f = Convert.ToInt32(Console.ReadLine());
+                switch (OpcaoMiniMenu)
+                {
 
-                Console.WriteLine(
-                    "Qual a quantidade de faltas do aluno(a) {0} , a quantidade de faltas do aluno(a) {0} é {0} ",
-                    lista_de_alunos[f].Falta
-                 );
+                    case 1:
+                        Console.WriteLine("Qual a RM de {0}?", lista_de_alunos[i].RM);
+                        do
+                        {
 
-                lista_de_alunos[f].Falta = Convert.ToDouble(Console.ReadLine());
+                            digitacao_valida = int.TryParse(Console.ReadLine(), out rm);
 
-                Console.BackgroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("Falta Editada com Sucesso!");
-                Console.BackgroundColor = ConsoleColor.Black;
-            }
-            else
-            {
-                Console.BackgroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Nenhum Aluno(a) foi adicionado(a)  ainda.");
-                Console.BackgroundColor = ConsoleColor.Black;
+                            if (rm < 0 || digitacao_valida == false)
+                            {
+                                Console.BackgroundColor = ConsoleColor.DarkRed;
+                                Console.WriteLine("Valor inválido, redigite um numero válido:");
+                                Console.BackgroundColor = ConsoleColor.Black;
 
+                                digitacao_valida = false;
+                            }
+                        } while (!digitacao_valida);
+
+                        lista_de_alunos[i].RM = rm;
+
+                        break;
+
+                    case 2:
+
+                        Console.WriteLine("Qual a nova nota de {0}?", lista_de_alunos[i].Nota);
+                        do
+                        {
+
+                            digitacao_valida = double.TryParse(Console.ReadLine(), out nota);
+
+                            if (nota < 0 || digitacao_valida == false || nota > 10)
+                            {
+                                Console.BackgroundColor = ConsoleColor.DarkRed;
+                                Console.WriteLine("Valor inválido, redigite um numero válido:");
+                                Console.BackgroundColor = ConsoleColor.Black;
+
+                                digitacao_valida = false;
+                            }
+                        } while (!digitacao_valida);
+
+                        lista_de_alunos[i].Nota = nota;
+
+                        break;
+
+
+                    case 3:
+
+                        Console.WriteLine("Qual a nova quantidade de faltas de {0}?", lista_de_alunos[i].Falta);
+                        do
+                        {
+
+                            digitacao_valida = int.TryParse(Console.ReadLine(), out faltas);
+
+                            if (faltas < 0 || digitacao_valida == false)
+                            {
+                                Console.BackgroundColor = ConsoleColor.DarkRed;
+                                Console.WriteLine("Valor inválido, redigite um numero válido:");
+                                Console.BackgroundColor = ConsoleColor.Black;
+
+                                digitacao_valida = false;
+                            }
+                        } while (!digitacao_valida);
+
+                        lista_de_alunos[i].Faltas = faltas;
+                }
             }
         }
+                public void remover()
+                {
+                    if (lista_de_alunos.Count > 0)
+                    {
+                        bool digitacao_valida;
+                        double nome;
+                        int rm;
+                        double nota;
+                        int faltas;
+                        int i;
+                        int OpcaoMiniMenu;
 
-        public void remover()
-        {
-            if (lista_de_alunos.Count > 0)
-            {
-                Console.WriteLine("Qual o ID do Aluno que você quer remover a nota?");
-                int i = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Qual o ID do aluno?");
+                        do
+                        {
+                            digitacao_valida = int.TryParse(Console.ReadLine(), out i);
 
-                lista_de_alunos.RemoveAt(i);
+                            if (i < 0 || digitacao_valida == false || i > lista_de_alunos.Count - 1)
+                            {
+                                Console.BackgroundColor = ConsoleColor.DarkRed;
+                                Console.WriteLine("Valor inválido, redigite um numero válido:");
+                                Console.BackgroundColor = ConsoleColor.Black;
 
-                Console.BackgroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("Nota do Aluno (a) Removido (a) com Sucesso!");
-                Console.BackgroundColor = ConsoleColor.Black;
+                                digitacao_valida = false;
+                            }
+                        } while (!digitacao_valida);
+
+
+                        digitacao_valida = false;
+                        Console.WriteLine("O que você quer Remover?");
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.WriteLine("1-RM");
+                        Console.WriteLine("2-Notas");
+                        Console.WriteLine("3-Faltas");
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        do
+                        {
+
+                            digitacao_valida = int.TryParse(Console.ReadLine(), out OpcaoMiniMenu);
+
+                            if (OpcaoMiniMenu > 3 || digitacao_valida == false || OpcaoMiniMenu < 1)
+                            {
+                                Console.Clear();
+                                Console.BackgroundColor = ConsoleColor.DarkRed;
+                                Console.BackgroundColor = ConsoleColor.Black;
+                                Console.WriteLine("1-RM");
+                                Console.WriteLine("2-Notas");
+                                Console.WriteLine("3-Faltas");
+                                Console.BackgroundColor = ConsoleColor.DarkRed;
+                                Console.WriteLine("Valor inválido, redigite um numero válido:");
+                                Console.BackgroundColor = ConsoleColor.Black;
+
+                                digitacao_valida = false;
+                            }
+
+                        } while (!digitacao_valida);
+
+                        switch (OpcaoMiniMenu)
+                        {
+
+                            case 1:
+                                Console.WriteLine("Qual a RM de {0}?", lista_de_alunos[i].RM);
+                                do
+                                {
+
+                                    digitacao_valida = int.TryParse(Console.ReadLine(), out rm);
+
+                                    if (rm < 0 || digitacao_valida == false)
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.DarkRed;
+                                        Console.WriteLine("Valor inválido, redigite um numero válido:");
+                                        Console.BackgroundColor = ConsoleColor.Black;
+
+                                        digitacao_valida = false;
+                                    }
+                                } while (!digitacao_valida);
+
+                                lista_de_alunos[i].RM = rm;
+
+                                break;
+
+                            case 2:
+
+                                Console.WriteLine("Qual a nova nota de {0}?", lista_de_alunos[i].Nota);
+                                do
+                                {
+
+                                    digitacao_valida = double.TryParse(Console.ReadLine(), out nota);
+
+                                    if (nota < 0 || digitacao_valida == false || nota > 10)
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.DarkRed;
+                                        Console.WriteLine("Valor inválido, redigite um numero válido:");
+                                        Console.BackgroundColor = ConsoleColor.Black;
+
+                                        digitacao_valida = false;
+                                    }
+                                } while (!digitacao_valida);
+
+                                lista_de_alunos[i].Nota = nota;
+
+                                break;
+
+
+                            case 3:
+
+                                Console.WriteLine("Qual a nova quantidade de faltas de {0}?", lista_de_alunos[i].Falta);
+                                do
+                                {
+
+                                    digitacao_valida = int.TryParse(Console.ReadLine(), out faltas);
+
+                                    if (faltas < 0 || digitacao_valida == false)
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.DarkRed;
+                                        Console.WriteLine("Valor inválido, redigite um numero válido:");
+                                        Console.BackgroundColor = ConsoleColor.Black;
+
+                                        digitacao_valida = false;
+                                    }
+                                } while (!digitacao_valida);
+
+                                lista_de_alunos[i].Faltas = faltas;
+                        }
+                    }
+                }
             }
-            else
-            {
-                Console.BackgroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Nenhum Aluno(a) foi adicionado(a)  ainda.");
-                Console.BackgroundColor = ConsoleColor.Black;
-
-            }
-
-            if (lista_de_alunos.Count > 0)
-            {
-                Console.WriteLine("Qual o ID do Aluno que você quer remover?");
-                int a = Convert.ToInt32(Console.ReadLine());
-
-                lista_de_alunos.RemoveAt(a);
-
-                Console.BackgroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("Aluno (a) Removido (a) com Sucesso!");
-                Console.BackgroundColor = ConsoleColor.Black;
-
-            }
-            else
-            {
-                Console.BackgroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Nenhum Aluno(a) foi adicionado(a)  ainda.");
-                Console.BackgroundColor = ConsoleColor.Black;
-
-            }
-
-
-            if (lista_de_alunos.Count > 0)
-            {
-                Console.WriteLine("Qual o ID do Aluno que você quer remover a falta?");
-                int f = Convert.ToInt32(Console.ReadLine());
-
-                lista_de_alunos.RemoveAt(f);
-
-                Console.BackgroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("Falta do Aluno (a) Removido (a) com Sucesso!");
-                Console.BackgroundColor = ConsoleColor.Black;
-            }
-            else
-            {
-                Console.BackgroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Nenhum Aluno(a) foi adicionado(a)  ainda.");
-                Console.BackgroundColor = ConsoleColor.Black;
-
-            }
-
-
 
         }
     }
 }
-      
-
-    
-       
 
 
-            
-    
+
+
+
+
+
+

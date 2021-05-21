@@ -33,6 +33,6 @@ namespace Escola
             set { rm = value; }
         }
 
-
+        public int Faltas { get; internal set; }
     }
 }

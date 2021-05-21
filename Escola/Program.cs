@@ -7,11 +7,13 @@ namespace Escola
         static void Main(string[] args)
         {
             
-            bool voltar_menu_inicial = false;
+            bool digitacao_valida = false;
 
             int opcao_menu;
 
-            Aluno dados_aluno = new Aluno();
+            bool tela_inicial = false;
+
+            Aluno lista_aluno = new Aluno();
 
             do
             {
@@ -32,68 +34,66 @@ namespace Escola
                 Console.WriteLine("8 => Remover a falta de um Aluno");
                 Console.WriteLine("9 => Sair do Sistema");
 
-                bool digitacao_valida_opcao_menu = false;
                 do
                 {
-                    digitacao_valida_opcao_menu = int.TryParse(Console.ReadLine(), out opcao_menu);
+                    digitacao_valida = int.TryParse(Console.ReadLine(), out opcao_menu);
 
-                    if (opcao_menu < 1 || opcao_menu > 9 || digitacao_valida_opcao_menu == false)
+                    if (opcao_menu < 1 || opcao_menu > 9 || digitacao_valida == false)
                     {
                         Console.BackgroundColor = ConsoleColor.DarkRed;
                         Console.WriteLine("Opção inválida, redigite uma opção:");
                         Console.BackgroundColor = ConsoleColor.Black;
 
-                        digitacao_valida_opcao_menu = false;
+                        digitacao_valida = false;
                     }
-                } while (!digitacao_valida_opcao_menu);
-
+                } while (!digitacao_valida);
 
                 switch (opcao_menu)
                 {
                     case 1:
-                        dados_aluno.listar();
+                        lista_aluno.listar();
                         break;
 
                     case 2:
-                        dados_aluno.inserir();
+                        lista_aluno.inserir();
                         break;
 
                     case 3:
-                        dados_aluno.remover();
+                        lista_aluno.remover();
                         break;
 
                    
                     case 4:
-                        dados_aluno.editar();
+                        lista_aluno.editar();
                         break;
 
                     case 5:
-                        dados_aluno.editar();
+                        lista_aluno.editar();
                         break;
 
                     case 6:
-                        dados_aluno.remover();
+                        lista_aluno.remover();
                         break;
 
                     case 7:
-                        dados_aluno.editar();
+                        lista_aluno.editar();
                         break;
 
 
                     case 8:
-                        dados_aluno.remover();
+                        lista_aluno.remover();
                         break;
 
                     case 9:
-                        Console.WriteLine("Vai sair do sistema.");
+                        Console.WriteLine("Você vai sair do sistema.");
                         break;
                       
                 }
 
                 Console.WriteLine("Deseja voltar ao menu inicial? S/n");
-                voltar_menu_inicial = (Console.ReadLine().ToUpper() == "S") ? true : false;
+                tela_inicial = (Console.ReadLine().ToUpper() == "S") ? true : false;
 
-            } while (voltar_menu_inicial);
+            } while (tela_inicial);
 
             Console.WriteLine("Fim do Programa.");
             Console.ReadKey();
