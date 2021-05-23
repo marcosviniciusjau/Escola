@@ -24,21 +24,17 @@ namespace Escola
                 Console.BackgroundColor = ConsoleColor.Black;
 
                 Console.WriteLine("Selecione uma Opção para Continuar:");
-                Console.WriteLine("1 => Ver a lista de Alunos com Notas e Faltas");
-                Console.WriteLine("2 => Adicionar um Aluno");
-                Console.WriteLine("3 => Remover um Aluno");
-                Console.WriteLine("4 => Editar o RM de um Aluno");
-                Console.WriteLine("5 => Editar a nota de um Aluno");
-                Console.WriteLine("6 => Remover a nota de um Aluno");
-                Console.WriteLine("7 => Editar a falta de um Aluno");
-                Console.WriteLine("8 => Remover a falta de um Aluno");
-                Console.WriteLine("9 => Sair do Sistema");
+                Console.WriteLine("1 => Ver a lista com os dados do aluno(a)");
+                Console.WriteLine("2 => Adicionar um Aluno(a)");
+                Console.WriteLine("3 => Remover um Aluno(a)");
+                Console.WriteLine("4 => Editar os dados do  Aluno(a)");
+                Console.WriteLine("5 => Sair do Sistema");
 
                 do
                 {
                     digitacao_valida = int.TryParse(Console.ReadLine(), out opcao_menu);
 
-                    if (opcao_menu < 1 || opcao_menu > 9 || digitacao_valida == false)
+                    if (opcao_menu < 1 || opcao_menu > 5 || digitacao_valida == false)
                     {
                         Console.BackgroundColor = ConsoleColor.DarkRed;
                         Console.WriteLine("Opção inválida, redigite uma opção:");
@@ -58,33 +54,17 @@ namespace Escola
                         lista_aluno.inserir();
                         break;
 
+                   
                     case 3:
                         lista_aluno.remover();
                         break;
 
-                   
                     case 4:
                         lista_aluno.editar();
                         break;
 
+                 
                     case 5:
-                        lista_aluno.editar();
-                        break;
-
-                    case 6:
-                        lista_aluno.remover();
-                        break;
-
-                    case 7:
-                        lista_aluno.editar();
-                        break;
-
-
-                    case 8:
-                        lista_aluno.remover();
-                        break;
-
-                    case 9:
                         Console.WriteLine("Você vai sair do sistema.");
                         break;
                       
